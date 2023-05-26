@@ -1,0 +1,31 @@
+#logging.level.web
+
+logging:
+  level:
+    web: DEBUG
+eureka:
+  client:
+    prefer-same-zone-eureka: false
+    serviceUrl:
+      defaultZone: http://Abhishek:Baghel@10.0.61.194:8761/eureka/
+  instance:
+    prefer-Ip-Address: true
+    instance-id: ${server.address}:${spring.application.name}:${server.port}
+
+server:
+  address: 10.0.61.194
+  port: 8070
+
+spring:
+  application:
+    name: API-GATEWAY
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  cloud:
+    gateway:
+      routes:
+        - id: JWT-SERVICE
+          uri: lb://JWT-SERVICE
+          predicates:
+            - Path=/**
